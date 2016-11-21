@@ -1,4 +1,4 @@
-/* 
+/*
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
  */
@@ -14,9 +14,9 @@
 info_struct info =
 {
    /* Replace with your full name */
-   "",
+   "余璞轩",
    /* Replace with your login ID */
-   "",
+   "2014302580341",
 };
 
 #if 0
@@ -28,11 +28,11 @@ You will provide your solution to the Data Lab by
 editing the collection of functions in this source file.
 
 CODING RULES:
- 
+
   Replace the "return" statement in each function with one
-  or more lines of C code that implements the function. Your code 
+  or more lines of C code that implements the function. Your code
   must conform to the following style:
- 
+
   int Funct(arg1, arg2, ...) {
       /* brief description of how your implementation works */
       int var1 = Expr1;
@@ -46,12 +46,12 @@ CODING RULES:
   }
 
   Each "Expr" is an expression using ONLY the following:
-  1. Integer constants 0 through 255 (0xFF), inclusive. 
+  1. Integer constants 0 through 255 (0xFF), inclusive.
      ***You are not allowed to use big constants such as 0xffffffff***
   2. Function arguments and local variables (no global variables).
   3. Unary integer operations ! ~
   4. Binary integer operations & ^ | + << >>
-    
+
   Some of the problems restrict the set of allowed operators even further.
   Each "Expr" may consist of multiple operators. You are not restricted to
   one operator per line.
@@ -63,7 +63,7 @@ CODING RULES:
   4. Call any functions.
   5. Use any other operations, such as &&, ||, -, ?, or []:
   6. Use any form of casting.
- 
+
   You may assume that your machine:
   1. Uses 2s complement, 32-bit representations of integers.
   2. Performs right shifts arithmetically.
@@ -92,9 +92,9 @@ EXAMPLES OF ACCEPTABLE CODING STYLE:
 
 NOTES AND HINTS:
   1. Each function has a maximum number of operators (! ~ & ^ | + << >>)
-     that you are allowed to use for your implementation of the function. 
-     The max operator count will be checked by your instructor. 
-     Note that '=' is not counted; you may use as many of these as you 
+     that you are allowed to use for your implementation of the function.
+     The max operator count will be checked by your instructor.
+     Note that '=' is not counted; you may use as many of these as you
      want without penalty.
   2. Use the btest test harness to check your functions for correctness.
 #endif
@@ -105,8 +105,8 @@ NOTES AND HINTS:
 
 
 
-/* 
- * bitAnd - x&y using only ~ and | 
+/*
+ * bitAnd - x&y using only ~ and |
  *   Example: bitAnd(6, 5) = 4
  *   Legal ops: ~ |
  *   Max ops: 8
@@ -114,25 +114,7 @@ NOTES AND HINTS:
  */
 int bitAnd(int x, int y) {
 
-  return 2;
-
-}
-
-
-
-
-
-
-/* 
- * bitOr - x|y using only ~ and & 
- *   Example: bitOr(6, 5) = 7
- *   Legal ops: ~ &
- *   Max ops: 8
- *   Rating: 1
- */
-int bitOr(int x, int y) {
-
-  return 2;
+  return ~ (~x | ~y);
 
 }
 
@@ -142,7 +124,25 @@ int bitOr(int x, int y) {
 
 
 /*
- * isZero - returns 1 if x == 0, and 0 otherwise 
+ * bitOr - x|y using only ~ and &
+ *   Example: bitOr(6, 5) = 7
+ *   Legal ops: ~ &
+ *   Max ops: 8
+ *   Rating: 1
+ */
+int bitOr(int x, int y) {
+
+    return ~ (~x & ~y);
+
+}
+
+
+
+
+
+
+/*
+ * isZero - returns 1 if x == 0, and 0 otherwise
  *   Examples: isZero(5) = 0, isZero(0) = 1
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 2
@@ -150,7 +150,7 @@ int bitOr(int x, int y) {
  */
 int isZero(int x) {
 
-  return 2;
+  return !x;
 
 }
 
@@ -159,15 +159,15 @@ int isZero(int x) {
 
 
 
-/* 
- * minusOne - return a value of -1 
+/*
+ * minusOne - return a value of -1
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 2
  *   Rating: 1
  */
 int minusOne(void) {
 
-  return 2;
+  return ~0;
 
 }
 
@@ -176,15 +176,15 @@ int minusOne(void) {
 
 
 
-/* 
- * TMax - return maximum two's complement integer 
+/*
+ * TMax - return maximum two's complement integer
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 4
  *   Rating: 1
  */
 int tmax(void) {
 
-  return 2;
+  return ~(1 << 31);
 
 }
 
@@ -194,8 +194,8 @@ int tmax(void) {
 
 
 
-/* 
- * bitXor - x^y using only ~ and & 
+/*
+ * bitXor - x^y using only ~ and &
  *   Example: bitXor(4, 5) = 1
  *   Legal ops: ~ &
  *   Max ops: 14
@@ -203,7 +203,7 @@ int tmax(void) {
  */
 int bitXor(int x, int y) {
 
-  return 2;
+  return ~(~(~x & y) & ~(x & ~y));
 
 }
 
@@ -212,7 +212,7 @@ int bitXor(int x, int y) {
 
 
 
-/* 
+/*
  * getByte - Extract byte n from word x
  *   Bytes numbered from 0 (LSB) to 3 (MSB)
  *   Examples: getByte(0x12345678,1) = 0x56
@@ -222,7 +222,7 @@ int bitXor(int x, int y) {
  */
 int getByte(int x, int n) {
 
-  return 2;
+  return (x >> (n << 3)) & 0xFF;
 
 }
 
@@ -231,8 +231,8 @@ int getByte(int x, int n) {
 
 
 
-/* 
- * isEqual - return 1 if x == y, and 0 otherwise 
+/*
+ * isEqual - return 1 if x == y, and 0 otherwise
  *   Examples: isEqual(5,5) = 1, isEqual(4,5) = 0
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 5
@@ -249,8 +249,8 @@ int isEqual(int x, int y) {
 
 
 
-/* 
- * negate - return -x 
+/*
+ * negate - return -x
  *   Example: negate(1) = -1.
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 5
@@ -258,7 +258,7 @@ int isEqual(int x, int y) {
  */
 int negate(int x) {
 
-  return 2;
+  return ~x + 1;
 
 }
 
@@ -267,8 +267,8 @@ int negate(int x) {
 
 
 
-/* 
- * isPositive - return 1 if x > 0, return 0 otherwise 
+/*
+ * isPositive - return 1 if x > 0, return 0 otherwise
  *   Example: isPositive(-1) = 0.
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 8
@@ -276,9 +276,6 @@ int negate(int x) {
  */
 int isPositive(int x) {
 
-  return 2;
+  return (~x>>31)&((~x+1)>>31)&0x1;
 
 }
-
-
-
