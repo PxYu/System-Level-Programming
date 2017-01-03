@@ -73,7 +73,8 @@ String* batch_subst(String *data, const char* subs_filename) {
 			pattern = subs_reader->ReadLine();
 			replacement = subs_reader->ReadLine();
 			separator = subs_reader->ReadLine();
-			data = string_subst(data, pattern, replacement);
+			//data = string_subst(data, pattern, replacement);
+            data = data -> Replace(pattern, replacement);
 		}
 		return data;
 	} catch(Exception* e ) {
